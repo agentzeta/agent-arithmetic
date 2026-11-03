@@ -221,6 +221,13 @@ name a time it caught them probably is not being used.
    checks failed, naming `p` and `r` for each. Worth doing to any result you
    intend to lead with.
 
+5. **The tests gave a false green under pytest.** The suites record failures
+   and exit non-zero when run as scripts, but never raised — so `pytest`, the
+   runner most people reach for, reported every test as passing even with the
+   headline result deliberately broken (`4 passed`, exit 0, against `4 FAILED`,
+   exit 1, as a script). A check that cannot fail is the exact failure this
+   repo warns about. `ok()` now raises under pytest; both runners agree.
+
 ---
 
 ## Layout

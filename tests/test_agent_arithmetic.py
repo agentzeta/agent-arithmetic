@@ -39,6 +39,10 @@ def ok(cond: bool, label: str) -> None:
         PASS += 1
     else:
         FAIL.append(label)
+        # Under pytest, fail loudly: a recorded-but-not-raised failure would
+        # otherwise let pytest report this test as passing (a false green).
+        if "pytest" in sys.modules:
+            raise AssertionError(label)
 
 
 def close(a: float, b: float, tol: float = 1e-9) -> bool:
